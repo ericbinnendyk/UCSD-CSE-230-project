@@ -22,6 +22,10 @@ We plan to implement this program in Haskell by using a state monad to parse exp
 * Allow the range to be computed correctly for expressions whose intermediate values are dependent. For example, if x = 0.5 +/- 0.1, then x and 1 - x are both 0.5 +/- 0.1. The product of two values in this range can be anywhere in (0.16, 0.36), but x*(1 - x) is in the range (0.24, 0.25). This may be done using symbolic calculus to compute the maximum and minimum of a multivariable function, but it is unlikely we can compute the range exactly in the general case because this is known to be a very difficult problem. <sup>[2]</sup>
 * Allow to plot graphs of expressions containing "fuzzy values" by plotting a curve as a thin strip using all possible ranges of the output value. Places where the strip got wide would reveal where the precision was not high enough to give an accurate plot image--for example, points close to (1, 0) in the graph of y = (cos(x) - 1)/x^2.
 
+## Status
+
+Currently, we have implemented addition and multiplication of the FloatWithError type, as well as a basic expression parser. The expression parser uses simple recursion and does not use monads yet.
+
 References
 1. https://web.ma.utexas.edu/users/arbogast/misc/disasters.html
 2. _Structure and Interpretation of Computer Programs_, Abelson, Sussman, Sussman, page 88.
