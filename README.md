@@ -45,6 +45,7 @@ The problems of rounding error and floating point error could be resolved with a
 
 Currently, we have implemented addition and multiplication of the FloatWithError type, as well as a basic expression parser. The expression parser uses simple recursion and does not use monads yet.
 
-References
+## References
+
 1. https://web.ma.utexas.edu/users/arbogast/misc/disasters.html
 2. _Structure and Interpretation of Computer Programs_, Abelson, Sussman, Sussman, page 88.
