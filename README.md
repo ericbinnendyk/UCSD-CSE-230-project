@@ -45,6 +45,14 @@ The problems of rounding error and floating point error could be resolved with a
 
 Currently, we have implemented addition and multiplication of the FloatWithError type, as well as a basic expression parser. The expression parser uses simple recursion and does not use monads yet.
 
+## Updates
+
+For our project architecture, we plan to place expressions as arguments to the program on the Bash command line. However, we may decide later that a REPL will be better.
+
+Challenges - We're still learning how to use Brick. I (Eric) had trouble setting up a Linux coding environment on my Windows 10 (I had trouble setting up a virtual machine for some reason), and had to settle for using Codespaces. However, I still don't know how to add the "comment evaluation" features to my codespace that are in the homework codespaces.
+
+We expect to meet our "weak" goals (command line interface, simple calculator) before the deadline, but we may have trouble with our "strong" goals (REPL, ability to write custom functions and detect correlation between variables, adding functions like log, exp, trig). If we have trouble with our strong goals, we can always fall back on our weak goals.
+
 ## References
 
 1. https://web.ma.utexas.edu/users/arbogast/misc/disasters.html
