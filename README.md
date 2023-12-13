@@ -1,6 +1,12 @@
 # UCSD-CSE-230-project
 Class project in Haskell for Ranjit Jhala's CSE 230 (Programming Languages) class at UCSD
 
+Project group:
+
+* Eric Binnendyk (ebinnendyk@ucsd.edu)
+* Jaron Zamora (j2zamora@ucsd.edu)
+* Siyuan Kong (s5kong@ucsd.edu)
+
 ## Introduction
 
 Our project proposal is a calculator for real numbers that encodes all floating point numbers with built-in margins of error and keeps track of the error when performing calculations.
