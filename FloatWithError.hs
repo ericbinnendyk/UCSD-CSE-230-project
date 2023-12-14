@@ -1,3 +1,5 @@
+module FloatWithError where
+
 data FloatWithError
   = FWE Float Float
   deriving (Show)
