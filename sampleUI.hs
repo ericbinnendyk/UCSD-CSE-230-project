@@ -16,6 +16,8 @@ import qualified Brick.AttrMap as A
 import qualified Brick.Focus as F
 import Brick.Util
 
+import Parse
+
 data Name = Edit1 deriving (Ord, Show, Eq)
 
 data St =
@@ -54,5 +56,8 @@ theApp =
 main :: IO ()
 main = do
     st <- M.defaultMain theApp initialState
-    putStrLn "Input you entered:\n"
-    putStrLn $ unlines $ E.getEditContents $ st^.edit1
+    -- putStrLn "Input you entered:\n"
+    -- putStrLn $ unlines $ E.getEditContents $ st^.edit1
+    putStrLn "(parsed) input you entered:\n"
+    print $ parseFromString floatWithErrorP (unlines $ E.getEditContents $ st^.edit1)
+
