@@ -51,7 +51,12 @@ exprP   = try (spaceP exprOpP)
    <|> (ExprNum <$> spaceP floatWithErrorP)
 
 exprP' :: Parser Expression
-exprP' = parens (spaceP exprP) <|> (ExprNum <$> spaceP floatWithErrorP)
+exprP' = try (parens (spaceP exprP))
+ <|> try (do
+            _ <- char '-'
+            expr <- spaceP exprP'
+            return (ExprNeg expr))
+ <|> (ExprNum <$> spaceP floatWithErrorP)
 
 exprOpP :: Parser Expression
 exprOpP = do
@@ -73,3 +78,5 @@ parens aP = do
     a <- spaceP aP
     _ <- char ')'
     return a
+
+-- >>> parseWithString 

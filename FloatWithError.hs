@@ -1,4 +1,5 @@
 module FloatWithError where
+import Control.Monad
 
 data FloatWithError
   = FWE Float Float
@@ -44,18 +45,22 @@ data Expression
   | ExprDiv Expression Expression
   | ExprNeg Expression
   | ExprNum FloatWithError
-  deriving (Show)
 
 -- I'm going to write this non-monadically for now. Later I will switch to writing it with monads to deal with errors like division by zero.
-evalExpr :: Expression -> FloatWithError
+evalExpr :: Expression -> Maybe FloatWithError
 evalExpr expr =
   case expr of
-    ExprAdd e1 e2 -> add_fwe (evalExpr e1) (evalExpr e2)
-    ExprMul e1 e2 -> mul_fwe (evalExpr e1) (evalExpr e2)
-    ExprSub e1 e2 -> sub_fwe (evalExpr e1) (evalExpr e2)
-    ExprDiv e1 e2 -> error "Division not implemented yet"
-    ExprNeg e1    -> neg_fwe (evalExpr e1)
-    ExprNum x     -> x
+    ExprAdd e1 e2 -> liftM2 add_fwe (evalExpr e1) (evalExpr e2)
+    ExprMul e1 e2 -> liftM2 mul_fwe (evalExpr e1) (evalExpr e2)
+    ExprSub e1 e2 -> liftM2 sub_fwe (evalExpr e1) (evalExpr e2)
+    ExprDiv e1 e2 -> do
+      val1 <- evalExpr e1
+      val2 <- evalExpr e2
+      case val2 of
+        FWE l h | l == 0 && h == 0 -> Nothing -- Division by zero error
+                | otherwise        -> Just (div_fwe val1 val2)
+    ExprNeg e1    -> fmap neg_fwe (evalExpr e1)
+    ExprNum x     -> Just x
 
 fweToString :: FloatWithError -> String
 fweToString (FWE low high) = show ((low + high) / 2) ++ "+/-" ++ show ((high - low) / 2)
