@@ -44,6 +44,7 @@ data Expression
   | ExprDiv Expression Expression
   | ExprNeg Expression
   | ExprNum FloatWithError
+  deriving (Show)
 
 -- I'm going to write this non-monadically for now. Later I will switch to writing it with monads to deal with errors like division by zero.
 evalExpr :: Expression -> FloatWithError

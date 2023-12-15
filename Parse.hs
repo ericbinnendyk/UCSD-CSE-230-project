@@ -11,14 +11,17 @@ parseFromString p s = runParser p () "DUMMY" s
 
 -- Parser for floats
 floatP :: Parser Float
-floatP = do
-    integerPart <- many digit
-    _ <- string "."
-    decimalPart <- many digit
-    return $ read (integerPart ++ "." ++ decimalPart)
+floatP = try withDecimal <|> withoutDecimal
+  where
+    withDecimal = do
+        integerPart <- many digit
+        _ <- char '.'
+        decimalPart <- many digit
+        return $ read (integerPart ++ "." ++ decimalPart)
 
--- >>> parseFromString floatWithErrorP "4.2 +/- 2.3"
--- Right (FWE 4.2 2.3)
+    withoutDecimal = do
+        integerPart <- many digit
+        return $ read integerPart
 
 -- Parses floats with error bars
 floatWithErrorP :: Parser FloatWithError
@@ -36,29 +39,26 @@ constP s x = do
    return x
 
 -- Currently this only works for operations on floats. TODO: Make this work with expressions instead. Maybe new operations for expressions?
-opP :: Parser (FloatWithError -> FloatWithError -> FloatWithError)
-opP = constP "+" add_fwe
-    <|> constP "-" sub_fwe
-    <|> constP "*" mul_fwe
-    <|> constP "/" div_fwe
+opP :: Parser (Expression -> Expression -> Expression)
+opP = constP "+" ExprAdd
+    <|> constP "-" ExprSub
+    <|> constP "*" ExprMul
+    <|> constP "/" ExprDiv
 
-{- TODO: expression parser
 exprP :: Parser Expression
-exprP =
-  try (spaceP exprOpP)
-    <|> parens (spaceP exprP)
-    <|> (ExprNum <$> spaceP floatWithErrorP)
+exprP   = try (spaceP exprOpP)
+   <|> parens (spaceP exprP)
+   <|> (ExprNum <$> spaceP floatWithErrorP)
 
 exprP' :: Parser Expression
-exprP' = parens (spaceP exprP) <|>
+exprP' = parens (spaceP exprP) <|> (ExprNum <$> spaceP floatWithErrorP)
 
 exprOpP :: Parser Expression
 exprOpP = do
-  expr1 <- spaceP exprP'
-  op <- opP
-  expr2 <- spaceP exprP
-  return (op expr1 expr2)
--}
+   expr1 <- spaceP exprP'
+   op <- opP
+   expr2 <- spaceP exprP
+   return (op expr1 expr2)
 
 spaceP :: Parser a -> Parser a
 spaceP p = do
