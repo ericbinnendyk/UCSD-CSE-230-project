@@ -25,9 +25,9 @@ So far, we have implemented the following features:
 
 - [x] Evaluation of expression trees
 
-- [ ] Parsing of input text
+- [x] Parsing of input text
 
-- [ ] Command line interface
+- [x] Command line interface
 
 - [ ] Ability to infer margins of error from inherent floating-point error
 

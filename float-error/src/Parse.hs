@@ -38,7 +38,6 @@ constP s x = do
    string s
    return x
 
--- Currently this only works for operations on floats. TODO: Make this work with expressions instead. Maybe new operations for expressions?
 opP :: Parser (Expression -> Expression -> Expression)
 opP = constP "+" ExprAdd
     <|> constP "-" ExprSub
@@ -79,4 +78,8 @@ parens aP = do
     _ <- char ')'
     return a
 
--- >>> parseWithString 
+-- >>> parseFromString exprP "((3.0 +/- 1.2) + (3.0 +/- 1.2)) * (4.3 +/- 0.7)"
+-- Right (ExprMul (ExprAdd (ExprNum (FWE 3.0 1.2)) (ExprNum (FWE 3.0 1.2))) (ExprNum (FWE 4.3 0.7)))
+
+-- >>> evalExpr (ExprMul (ExprNum (FWE 6.0 2.4)) (ExprNum (FWE 4.3 0.7)))
+-- Just (FWE 25.800001 1.6800001)
