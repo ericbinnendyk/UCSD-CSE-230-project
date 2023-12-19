@@ -7,6 +7,8 @@ Project group:
 * Jaron Zamora (j2zamora@ucsd.edu)
 * Siyuan Kong (s5kong@ucsd.edu)
 
+**NOTE**: Some text of this README is adapted from a homework assignment that I (Eric) had as an undergraduate in Spring 2019. The assignment was ``1st Homework'' from the class CSE 326 - Software Engineering at New Mexico Tech.
+
 ## Introduction
 
 Our project proposal is a calculator for real numbers that encodes all floating point numbers with built-in margins of error and keeps track of the error when performing calculations.
