@@ -67,3 +67,4 @@ We expect to meet our "weak" goals (command line interface, simple calculator) b
 ## Sources for code
 - parseFromString function taken from CSE 230 Homework 2 starter code
 - spaces, parens functions taken from CSE 230 Homework 2 implementation by Jaron Zamora
+- Referenced Brick library example program for terminal user interface: https://github.com/jtdaugherty/brick/blob/master/programs/EditDemo.hs. Changed the editor to fit our program and use the editor to take user input as a string and put it into the parser instead of printing the user input.
