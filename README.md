@@ -63,3 +63,7 @@ We expect to meet our "weak" goals (command line interface, simple calculator) b
 
 1. https://web.ma.utexas.edu/users/arbogast/misc/disasters.html
 2. _Structure and Interpretation of Computer Programs_, Abelson, Sussman, Sussman, page 88.
+
+## Sources for code
+- parseFromString function taken from CSE 230 Homework 2 starter code
+- spaces, parens functions taken from CSE 230 Homework 2 implementation by Jaron Zamora
